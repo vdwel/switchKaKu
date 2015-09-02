@@ -10,6 +10,6 @@
  
 #include "Arduino.h"
 
-void switchKaku(int pin, unsigned long id, int group, int dev, bool state, int repeat);
+void switchKaku(int pin, unsigned long id, int group, int dev, bool state, int repeat, int dimlevel = -1);
 void sendKakuCode(int pin, unsigned long code, int repeat);
 void sendBit(int value, int pin, int period);

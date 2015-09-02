@@ -8,4 +8,4 @@ Usage: switchKaku(int pin, unsigned long id, int group, int dev, bool state, int
 - device = between 1 and 4, -1 switches the entire group
 - state = true (on) or false (off)
 - repeat = transmit repeats
-
+- dimlevel = -1 (no dimmer), between 0 and 15 for the dimlevel
