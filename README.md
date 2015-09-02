@@ -1,7 +1,7 @@
 # switchKaKu
 Arduino library for switching with the new KaKu (Klik aan Klik uit) protocol
 
-Usage: switchKaku(int pin, unsigned long id, int group, int dev, bool state, int repeat)
+Usage: switchKaku(int pin, unsigned long id, int group, int dev, bool state, int repeat, int dimlevel)
 - pin = pin number
 - id = unique id of transmitter (between 1 and 67108863)
 - group = between 1 and 4, 
