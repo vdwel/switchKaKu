@@ -13,3 +13,5 @@
 void switchKaku(int pin, unsigned long id, int group, int dev, bool state, int repeat, int dimlevel = -1);
 void sendKakuCode(int pin, unsigned long code, int repeat);
 void sendBit(int value, int pin, int period);
+void sendSyc(int pin, int period);
+void sendKakuDimCode(int pin, unsigned long id, unsigned long code, int repeat);

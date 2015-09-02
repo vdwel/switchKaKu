@@ -16,10 +16,10 @@ void switchKaku(int pin, unsigned long id, int group, int dev, bool state, int r
   } else {
     dev -= 1;
   }
-  if (dimlevel > -1) {
-  sendKakuCode(pin, (((id<<8|dev)|state<<4)|1<<7)|(group-1)<<2, repeat);
+  if (dimlevel == -1) {
+  	sendKakuCode(pin, ((id<<6|dev)|state<<4)|(group-1)<<2, repeat);
   } else {
-  sendKakuDimCode(pin, ((((id<<8|dev)|state<<4)|1<<7)|(group-1)<<2)<<4|dimlevel, repeat);
+    sendKakuDimCode(pin, id, (((dev<<4)|state<<8)|(group-1)<<6)|dimlevel, repeat);
   }
 }
 
@@ -29,30 +29,35 @@ void sendKakuCode(int pin, unsigned long code, int repeat){
   for (int j = 0; j < repeat; j++){
     sendSyc(pin, period);
     for (int i = 31; i>=0; i--){
-      sendBit(code & (1<<i), pin, period);
+      sendBit(((code & (1<<i))==(1<<i)), pin, period);
     }
     digitalWrite(pin,HIGH);
     delayMicroseconds(period);    
     digitalWrite(pin, LOW);
   }
+  Serial.println();
 }
 
-void sendKakuDimCode(int pin, unsigned long code, int repeat){
+void sendKakuDimCode(int pin, unsigned long id, unsigned long code, int repeat){
   int period = 230;
   pinMode(pin, OUTPUT);
   for (int j = 0; j < repeat; j++){
     sendSyc(pin, period);  
-    for (int i = 35; i>=0; i--){
-      if (i == 27) {
-      sendBit(-1, pin, period);
+    for (int i = 25; i>=0; i--){
+      sendBit(((id & (1<<i))==(1<<i)), pin, period);
+    }
+    for (int i = 9; i>=0; i--){
+      if (i == 8) {
+      	sendBit(-1, pin, period);
       } else {
-      sendBit(code & (1<<i), pin, period);
+      	sendBit(((code & (1<<i))==(1<<i)), pin, period);
+      }
     }
     digitalWrite(pin,HIGH);
     delayMicroseconds(period);    
     digitalWrite(pin, LOW);
-    //Serial.println("");
   }
+  Serial.println();
 }
 
 
@@ -67,6 +72,7 @@ void sendSyc(int pin, int period){
 }
 
 void sendBit(int value, int pin, int period){
+  Serial.print(value);
   if (value == 0){
     digitalWrite(pin,HIGH);
     delayMicroseconds(period);
