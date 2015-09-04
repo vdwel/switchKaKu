@@ -35,7 +35,6 @@ void sendKakuCode(int pin, unsigned long code, int repeat){
     delayMicroseconds(period);    
     digitalWrite(pin, LOW);
   }
-  Serial.println();
 }
 
 void sendKakuDimCode(int pin, unsigned long id, unsigned long code, int repeat){
@@ -56,8 +55,7 @@ void sendKakuDimCode(int pin, unsigned long id, unsigned long code, int repeat){
     digitalWrite(pin,HIGH);
     delayMicroseconds(period);    
     digitalWrite(pin, LOW);
-  }
-  Serial.println();
+  };
 }
 
 
@@ -72,7 +70,6 @@ void sendSyc(int pin, int period){
 }
 
 void sendBit(int value, int pin, int period){
-  Serial.print(value);
   if (value == 0){
     digitalWrite(pin,HIGH);
     delayMicroseconds(period);
